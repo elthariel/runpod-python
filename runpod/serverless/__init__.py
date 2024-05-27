@@ -46,6 +46,10 @@ parser.add_argument("--rp_api_concurrency", type=int, default=1,
                     help="Number of concurrent FastAPI workers.")
 parser.add_argument("--rp_api_host", type=str, default="localhost",
                     help="Host to start the FastAPI server on.")
+parser.add_argument("--rp_api_reload", action="store_true", default=False,
+                    help="Reload server when code changed")
+parser.add_argument("--rp_api_reload_dirs", action="append", default=[],
+                    help="Directories to watch for changed files. Can be repeaetd")
 
 # Test input
 parser.add_argument("--test_input", type=str, default=None,
@@ -132,7 +136,9 @@ def start(config: Dict[str, Any]):
         api_server.start_uvicorn(
             api_host=config['rp_args']['rp_api_host'],
             api_port=config['rp_args']['rp_api_port'],
-            api_concurrency=config['rp_args']['rp_api_concurrency']
+            api_concurrency=config['rp_args']['rp_api_concurrency'],
+            api_reload=config['rp_args']['rp_api_reload'],
+            api_reload_dirs=config['rp_args']['rp_api_reload_dirs']
         )
 
     elif realtime_port:
