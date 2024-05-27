@@ -256,7 +256,7 @@ class WorkerAPI:
 
     def start_uvicorn(
         self, api_host='localhost', api_port=8000, api_concurrency=1,
-        reload=False, reload_dirs=[]
+        api_reload=False, api_reload_dirs=[]
     ):
         '''
         Starts the Uvicorn server.
@@ -266,7 +266,7 @@ class WorkerAPI:
             port=int(api_port), workers=int(api_concurrency),
             log_level=os.environ.get("UVICORN_LOG_LEVEL", "info"),
             access_log=False,
-            reload=reload, reload_dirs=reload_dirs
+            reload=api_reload, reload_dirs=api_reload_dirs
         )
 
     # ----------------------------- Realtime Endpoint ---------------------------- #
